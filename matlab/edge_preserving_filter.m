@@ -4,7 +4,7 @@ function Y = edge_preserving_filter(X, ks, p)
   
   %unit_8 is a 3x3 matric which is used to get rid of 8 unnecessary right
   %bit of 16 when multiple operation occer
-  unit_8 = [ 256, 256, 256; 256, 256, 256; 256, 256, 256]
+  unit_8 = [ 256, 256, 256; 256, 256, 256; 256, 256, 256];
   
   % Zero padding matrix
   % ph?n này padding zero cho ma tr?n X[256,256] thành A[258,258]
@@ -33,7 +33,15 @@ function Y = edge_preserving_filter(X, ks, p)
       end
     end
   end
-  
+  %%%%%%%%%%%%%%%%%%%%%%%
+  %save noisy image paded (258x258)
+  fid = fopen('noisy_im_padding.mem', 'wt');
+  for ii = 1: size(A, 1)       
+    fprintf(fid, '%2x ', A(ii,:));
+    fprintf(fid, '\n');
+  end
+  fclose(fid);
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % Convolution
   % quét t?ng ô m?t trong ?nh g?c
   Y = zeros(H, W); % ?nh out put
@@ -57,8 +65,15 @@ function Y = edge_preserving_filter(X, ks, p)
     
     C = C.^2;
     C = floor(C ./ unit_8);
-        
-    Y(i,j) = floor(sum(sum(C.*P)) / sum(sum(C)));
+    
+    div_a = floor(sum(sum(C.*P)) / 16);
+    div_b = floor(sum(sum(C)) / 16);
+    
+    div_a = bitshift(div_a, -1); % right shift 1 bit
+    div_b = bitshift(div_b, -1); % right shift 1 bit
+
+%     Y(i,j) = floor(sum(sum(C.*P)) / sum(sum(C)));
+    Y(i,j) = floor(div_a / div_b);
    end
   end
 end
