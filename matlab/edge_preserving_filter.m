@@ -73,7 +73,7 @@ function Y = edge_preserving_filter(X, ks, p)
     div_b = bitshift(div_b, -1); % right shift 1 bit
 
 %     Y(i,j) = floor(sum(sum(C.*P)) / sum(sum(C)));
-    Y(i,j) = floor(div_a / div_b);
+    Y(i,j) = ceil(div_a / div_b);
    end
   end
 end

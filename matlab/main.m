@@ -28,7 +28,7 @@ fil_im = uint8(edge_preserving_filter(noisy_im, 3, 8));
 fid = fopen('noisy_im.mem', 'wt');
 
 for ii = 1: size(noisy_im, 1)       
-    fprintf(fid, '%2X ', noisy_im(ii,:));
+    fprintf(fid, '%2x ', noisy_im(ii,:));
     fprintf(fid, '\n');
 end
 fclose(fid);
@@ -37,7 +37,7 @@ fclose(fid);
 fid = fopen('fil_im.mem', 'wt');
 
 for ii = 1: size(fil_im, 1)       
-    fprintf(fid, '%2X ', fil_im(ii,:));
+    fprintf(fid, '%2x ', fil_im(ii,:));
     fprintf(fid, '\n');
 end
 fclose(fid);
