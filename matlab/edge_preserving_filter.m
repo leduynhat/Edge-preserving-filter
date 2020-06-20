@@ -42,6 +42,39 @@ function Y = edge_preserving_filter(X, ks, p)
   end
   fclose(fid);
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %divide padding image into 4 squares
+  fid = fopen('noisy_im_padding1.mem', 'wt');
+  A1 = A([1:130],[1:130]);
+  for ii = 1: size(A1, 1)       
+    fprintf(fid, '%2x ', A1(ii,:));
+    fprintf(fid, '\n');
+  end
+  fclose(fid);
+  
+  fid = fopen('noisy_im_padding2.mem', 'wt');
+  A1 = A([1:130],[129:258]);
+  for ii = 1: size(A1, 1)       
+    fprintf(fid, '%2x ', A1(ii,:));
+    fprintf(fid, '\n');
+  end
+  fclose(fid);
+  
+  fid = fopen('noisy_im_padding3.mem', 'wt');
+  A1 = A([129:258],[1:130]);
+  for ii = 1: size(A1, 1)       
+    fprintf(fid, '%2x ', A1(ii,:));
+    fprintf(fid, '\n');
+  end
+  fclose(fid);
+  
+  fid = fopen('noisy_im_padding4.mem', 'wt'); 
+  A1 = A([129:258],[129:258]);
+  for ii = 1: size(A1, 1)       
+    fprintf(fid, '%2x ', A1(ii,:));
+    fprintf(fid, '\n');
+  end
+  fclose(fid);
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % Convolution
   % quét t?ng ô m?t trong ?nh g?c
   Y = zeros(H, W); % ?nh out put
@@ -73,7 +106,7 @@ function Y = edge_preserving_filter(X, ks, p)
     div_b = bitshift(div_b, -1); % right shift 1 bit
 
 %     Y(i,j) = floor(sum(sum(C.*P)) / sum(sum(C)));
-    Y(i,j) = ceil(div_a / div_b);
+    Y(i,j) = floor(div_a / div_b);
    end
   end
 end

@@ -1,3 +1,1 @@
-a =hex2dec('FFFF');
-b = hex2dec('FF');
-result = a/b;
+input = readmtx('noisy_im_padding.txt', 258, 258, 'uint8');

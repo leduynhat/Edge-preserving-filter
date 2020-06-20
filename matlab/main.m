@@ -42,7 +42,38 @@ for ii = 1: size(fil_im, 1)
 end
 fclose(fid);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%divide output into 4 parts
+  fid = fopen('fil_im1.mem', 'wt');
+  A1 = fil_im([1:128],[1:128]);
+  for ii = 1: size(A1, 1)       
+    fprintf(fid, '%2x ', A1(ii,:));
+    fprintf(fid, '\n');
+  end
+  fclose(fid);
+  
+    fid = fopen('fil_im2.mem', 'wt');
+  A1 = fil_im([1:128],[129:256]);
+  for ii = 1: size(A1, 1)       
+    fprintf(fid, '%2x ', A1(ii,:));
+    fprintf(fid, '\n');
+  end
+  fclose(fid);
+  
+    fid = fopen('fil_im3.mem', 'wt');
+  A1 = fil_im([129:256],[1:128]);
+  for ii = 1: size(A1, 1)       
+    fprintf(fid, '%2x ', A1(ii,:));
+    fprintf(fid, '\n');
+  end
+  fclose(fid);
+  
+    fid = fopen('fil_im4.mem', 'wt');
+  A1 = fil_im([129:256],[129:256]);
+  for ii = 1: size(A1, 1)       
+    fprintf(fid, '%2x ', A1(ii,:));
+    fprintf(fid, '\n');
+  end
+  fclose(fid);
 %Show out the results
 figure;
 subplot(1,4,1); imshow(uint8(clean_im)); title('Clean image');
